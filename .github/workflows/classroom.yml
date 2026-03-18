@@ -1,0 +1,59 @@
+name: Autograding Tests
+'on':
+- push
+- repository_dispatch
+permissions:
+  checks: write
+  actions: read
+  contents: read
+jobs:
+  run-autograding-tests:
+    runs-on: ubuntu-latest
+    if: github.actor != 'github-classroom[bot]'
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    - name: teste 1
+      id: teste-1
+      uses: classroom-resources/autograding-io-grader@v1
+      with:
+        test-name: teste 1
+        setup-command: ''
+        command: make test1
+        input: ''
+        expected-output: ''
+        comparison-method: exact
+        timeout: 10
+        max-score: 40
+    - name: teste 2
+      id: teste-2
+      uses: classroom-resources/autograding-io-grader@v1
+      with:
+        test-name: teste 2
+        setup-command: ''
+        command: make test2
+        input: ''
+        expected-output: ''
+        comparison-method: exact
+        timeout: 10
+        max-score: 50
+    - name: Teste 3
+      id: teste-3
+      uses: classroom-resources/autograding-io-grader@v1
+      with:
+        test-name: Teste 3
+        setup-command: ''
+        command: make test3
+        input: ''
+        expected-output: ''
+        comparison-method: exact
+        timeout: 10
+        max-score: 10
+    - name: Autograding Reporter
+      uses: classroom-resources/autograding-grading-reporter@v1
+      env:
+        TESTE-1_RESULTS: "${{steps.teste-1.outputs.result}}"
+        TESTE-2_RESULTS: "${{steps.teste-2.outputs.result}}"
+        TESTE-3_RESULTS: "${{steps.teste-3.outputs.result}}"
+      with:
+        runners: teste-1,teste-2,teste-3
