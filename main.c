@@ -3,5 +3,5 @@
 
 int main()
 {
-	printf("Nada implementado ainda ...");
+	printf("Teste do teste");
 }
