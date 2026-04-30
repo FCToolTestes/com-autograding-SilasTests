@@ -5,7 +5,7 @@
 
 int main(void) {
     TListaEncadeada lista;
-    char comando[16];
+    char comando[16]; 
 
     inicializarLista(&lista);
 
